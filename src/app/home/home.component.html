@@ -1,0 +1,85 @@
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center text-center text-white"
+         style="background: linear-gradient(180deg, #6a11cb 0%, #8e54e9 100%); min-height: 40vh; border-top: 6px solid #cca7f0; border-bottom: 6px solid #5b0ea6;">
+  <div class="container">
+    <h1 class="fw-bold mb-3" style="font-family: 'Inter', sans-serif; font-size: 3rem;">
+      Welcome to Employee Portal
+    </h1>
+    <p class="lead mb-4" style="max-width: 700px; margin: 0 auto; font-size: 1.2rem;">
+      Manage your employees with ease — add, edit, delete and view employee details in a clean and modern interface.
+    </p>
+    <div class="d-flex justify-content-center gap-3">
+      <a [routerLink]="['/getEmployees']" class="btn btn-lg btn-light text-purple fw-semibold px-4">
+        View Employees
+      </a>
+      <a [routerLink]="['/addEmployee']" class="btn btn-lg btn-outline-light fw-semibold px-4">
+        Add Employee
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3" style="color:#6a11cb;">Features</h2>
+    <p class="text-muted mb-5">Our Employee Portal comes with simple yet powerful features.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+          <h5 class="fw-semibold text-purple">👤 Employee Records</h5>
+          <p class="text-muted">Add and manage employees with fields like Name, DOB, Photo, Department, and Address.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+          <h5 class="fw-semibold text-purple">📸 Photos Included</h5>
+          <p class="text-muted">Upload and view employee photos directly in the directory with clean avatar design.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+          <h5 class="fw-semibold text-purple">📊 Pagination</h5>
+          <p class="text-muted">Browse through employees easily with built-in pagination for better navigation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<router-outlet></router-outlet>
+
+<!-- External Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Extra Styles -->
+<style>
+  .nav-link {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .active-link {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+  }
+
+  .navbar-brand {
+    letter-spacing: 1px;
+  }
+
+  .text-purple {
+    color: #6a11cb !important;
+  }
+
+  .btn-light.text-purple {
+    color: #6a11cb !important;
+  }
+</style>
