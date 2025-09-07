@@ -4,7 +4,6 @@ import com.ftpl.EmployeePortal.dao.EmployeeDao;
 import com.ftpl.EmployeePortal.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -14,8 +13,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
-    public int registerEmployee(Employee employee) {
-        return employeeDao.saveEmployee (employee);
+    public void registerEmployee(Employee employee) {
+        employeeDao.saveEmployee(employee);
     }
 
     @Override
@@ -24,14 +23,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean deleteEmployeeById(int id) {
+    public Employee getEmployeeById(Long id) {
+        return employeeDao.getEmployeeById(id);
+    }
+
+    @Override
+    public boolean deleteEmployeeById(Long id) {
         return employeeDao.deleteById(id);
     }
 
     @Override
-    public boolean updateEmployee(Employee employee) {
-        return employeeDao.updateEmployee(employee);
+    public void updateEmployee(Employee employee) {
+        employeeDao.updateEmployee(employee);
     }
-
 }
-

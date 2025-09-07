@@ -7,7 +7,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -17,64 +16,50 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public int saveEmployee (Employee employee) {
-            try (Session session = sessionFactory.openSession()) {
-                Transaction transaction = session.beginTransaction();
-                Employee dbEmployee = session.get(Employee.class, employee.getId());
-                if (dbEmployee == null) {
-                    session.save(employee);
-                    transaction.commit();
-                    return 1; // Success: Student saved
-                } else {
-                    return 2; // Error: Student already exists
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return 3; // Error: Exception occurred
-            }
-        }
-
-    @Override
-    public List<Employee> getAllEmployees () {
-        try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Employee", Employee.class).getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<> ();
-        }
-    }
-
-    @Override
-    public boolean updateEmployee (Employee employee) {
+    public void saveEmployee(Employee employee) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-
-            // Fetch the existing Employee from the database
-            Employee existingEmp = session.get(Employee.class, employee.getId());
-
-            if (existingEmp != null) {
-                session.evict(existingEmp);
-                session.update(employee);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                return false;
-            }
+            session.save(employee);
+            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
-            return false;
         }
     }
 
     @Override
-    public boolean deleteById (int id) {
+    public List<Employee> getAllEmployees() {
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            return session.createQuery("FROM Employee", Employee.class).getResultList();
+        }
+    }
+
+    @Override
+    public Employee getEmployeeById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Employee.class, id);
+        }
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.update(employee);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
             Employee employee = session.get(Employee.class, id);
             if (employee != null) {
                 session.delete(employee);
@@ -83,6 +68,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
             return false;
         } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
         }
