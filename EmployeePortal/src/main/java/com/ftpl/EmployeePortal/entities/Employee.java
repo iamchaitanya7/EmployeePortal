@@ -21,10 +21,11 @@ public class Employee {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] photo;
 
-
+    //Constructor
     public Employee () {
     }
 
+    //Getters and Setters
     public Long getId () {
         return id;
     }
